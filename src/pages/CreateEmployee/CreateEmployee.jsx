@@ -1,8 +1,13 @@
+import Header from '../../components/Header/Header';
+
 const CreateEmployee = () => {
     return (
-        <div>
-            <p>CreateEmployee</p>
-        </div>
+        <>
+            <Header>test</Header>
+            <div>
+                <p>CreateEmployee</p>
+            </div>
+        </>
     );
 };
 

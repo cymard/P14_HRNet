@@ -1,5 +1,12 @@
+import Header from '../../components/Header/Header';
+
 const EmployeeList = () => {
-    return <div>EmployeeList</div>;
+    return (
+        <>
+            <Header>test</Header>
+            <div>EmployeeList</div>
+        </>
+    );
 };
 
 export default EmployeeList;
