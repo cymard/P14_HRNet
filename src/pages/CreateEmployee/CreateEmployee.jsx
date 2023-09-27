@@ -5,8 +5,10 @@ const CreateEmployee = () => {
     return (
         <>
             <Header>HRnet</Header>
-            <div className="container">
-                <a href="#">View Current Employees</a>
+            <a className="ms-3" href="#">
+                View Current Employees
+            </a>
+            <div className="bg-light col-10 container px-4 py-3 rounded-4 my-4">
                 <h2>Create Employee</h2>
                 <CreateEmployeeForm />
             </div>
