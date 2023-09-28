@@ -1,19 +1,21 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
+const formDataInitValues = {
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    startDate: '',
+    street: '',
+    city: '',
+    state: 'dataA',
+    zipCode: '',
+    department: 'Sales',
+};
+
 const useAppStore = create(
     devtools(set => ({
-        formData: {
-            firstName: '',
-            lastName: '',
-            dateOfBirth: '',
-            startDate: '',
-            street: '',
-            city: '',
-            state: '',
-            zipCode: '',
-            department: '',
-        },
+        formData: formDataInitValues,
         setField: (name, value) =>
             set(state => ({
                 ...state,
@@ -22,24 +24,19 @@ const useAppStore = create(
         resetFormData: () =>
             set(state => ({
                 ...state,
-                formData: {
-                    firstName: '',
-                    lastName: '',
-                    dateOfBirth: '',
-                    startDate: '',
-                    street: '',
-                    city: '',
-                    state: '',
-                    zipCode: '',
-                    department: '',
-                },
+                formData: formDataInitValues,
             })),
         employees: [],
-        setEmployees: employee =>
+        addEmployee: employee =>
             set(state => ({
                 ...state,
                 employees: [...state.employees, employee],
             })),
+        fetchEmployeesFromLocalStorage: () => {
+            const employeesString = localStorage.getItem('employees');
+            const employeesData = employeesString ? JSON.parse(employeesString) : [];
+            return set(state => ({ ...state, employees: employeesData }));
+        },
     }))
 );
 

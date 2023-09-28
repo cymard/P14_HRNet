@@ -6,25 +6,23 @@ import NumberField from '../NumberField/NumberField.jsx';
 import SelectField from '../SelectField/SelectField.jsx';
 
 const CreateEmployeeForm = () => {
-    const { formData, setField, resetFormData, employees, setEmployees } = useAppStore();
-    const initFormInputs = {
+    const { formData, setField, resetFormData, employees, addEmployee, fetchEmployeesFromLocalStorage } = useAppStore();
+    const formFieldErrors = {
         firstName: '',
         lastName: '',
         dateOfBirth: '',
         startDate: '',
-        department: '',
         street: '',
         city: '',
         state: '',
         zipCode: '',
+        department: '',
     };
-    const [errors, setErrors] = useState(initFormInputs);
+    const [errors, setErrors] = useState(formFieldErrors);
 
     useEffect(() => {
-        const employeesString = localStorage.getItem('employees');
-        const employeesData = employeesString ? JSON.parse(employeesString) : [];
-        employeesData.map(employee => setEmployees(employee));
-    }, [setEmployees]);
+        fetchEmployeesFromLocalStorage();
+    }, [fetchEmployeesFromLocalStorage]);
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -41,8 +39,8 @@ const CreateEmployeeForm = () => {
         employeeValidation
             .validate(formData)
             .then(() => {
-                setErrors(initFormInputs);
-                setEmployees(formData);
+                setErrors(formFieldErrors);
+                addEmployee(formData);
                 const employeesData = [...employees, formData];
                 localStorage.setItem('employees', JSON.stringify(employeesData));
                 resetFormData();
@@ -89,7 +87,7 @@ const CreateEmployeeForm = () => {
                     id="state"
                     name="state"
                     value={formData.state}
-                    options={['data1', 'data2', 'data3', 'data4', 'data5']}
+                    options={['dataA', 'dataB', 'dataC', 'dataD', 'dataE']}
                 >
                     State
                 </SelectField>
