@@ -34,8 +34,8 @@ const useAppStore = create(
             })),
         fetchEmployeesFromLocalStorage: () => {
             const employeesString = localStorage.getItem('employees');
-            const employeesData = employeesString ? JSON.parse(employeesString) : [];
-            return set(state => ({ ...state, employees: employeesData }));
+            const employeesParsed = employeesString ? JSON.parse(employeesString) : [];
+            return set(state => ({ ...state, employees: employeesParsed }));
         },
     }))
 );

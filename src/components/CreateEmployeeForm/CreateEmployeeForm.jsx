@@ -7,7 +7,7 @@ import SelectField from '../SelectField/SelectField.jsx';
 
 const CreateEmployeeForm = () => {
     const { formData, setField, resetFormData, employees, addEmployee, fetchEmployeesFromLocalStorage } = useAppStore();
-    const formFieldErrors = {
+    const initialFormFieldErrors = {
         firstName: '',
         lastName: '',
         dateOfBirth: '',
@@ -18,7 +18,7 @@ const CreateEmployeeForm = () => {
         zipCode: '',
         department: '',
     };
-    const [errors, setErrors] = useState(formFieldErrors);
+    const [errors, setErrors] = useState(initialFormFieldErrors);
 
     useEffect(() => {
         fetchEmployeesFromLocalStorage();
@@ -39,10 +39,9 @@ const CreateEmployeeForm = () => {
         employeeValidation
             .validate(formData)
             .then(() => {
-                setErrors(formFieldErrors);
+                setErrors(initialFormFieldErrors);
                 addEmployee(formData);
-                const employeesData = [...employees, formData];
-                localStorage.setItem('employees', JSON.stringify(employeesData));
+                localStorage.setItem('employees', JSON.stringify([...employees, formData]));
                 resetFormData();
             })
             .catch(err => {
@@ -53,7 +52,7 @@ const CreateEmployeeForm = () => {
     };
 
     return (
-        <form onSubmit={e => handleSubmit(e)} action="#" id="create-employee">
+        <form onSubmit={e => handleSubmit(e)} >
             <TextField error={errors.firstName} handleChange={handleChange} id="first-name" name="firstName" value={formData.firstName}>
                 First Name
             </TextField>

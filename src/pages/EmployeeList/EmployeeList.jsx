@@ -6,7 +6,7 @@ const EmployeeList = () => {
         <div className="container">
             <Header>Current Employees</Header>
             <div>Datatable</div>
-            <Link to="/">Home</Link>
+            <Link className="btn btn-outline-secondary" to="/">Home</Link>
         </div>
     );
 };
