@@ -6,13 +6,14 @@ import 'react-clock/dist/Clock.css';
 import './startDateField.scss';
 
 const StartDateField = ({ setErrors, errors, handleChange, id, name, value, children }) => {
-    const [fieldValue, setFieldValue] = useState(new Date());
+    // eslint-disable-next-line no-unused-vars
+    const [_, setFieldValue] = useState(new Date());
 
-    const localHandleChange = (value) => {
+    const localHandleChange = value => {
         setFieldValue(value);
-        setErrors({ ...errors, startDate: '' })
+        setErrors({ ...errors, startDate: '' });
         handleChange({ target: { name, value } });
-    }
+    };
 
     const handleInvalidChange = () => setErrors({ ...errors, startDate: 'Invalid date' });
 

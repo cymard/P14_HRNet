@@ -4,8 +4,8 @@ import employeeValidation from '../../validation/employeeValidation.js';
 import TextField from '../TextField/TextField.jsx';
 import NumberField from '../NumberField/NumberField.jsx';
 import SelectField from '../SelectField/SelectField.jsx';
-import DateOfBirthField from "../DateOfBirthField/DateOfBirthField.jsx";
-import StartDateField from "../StartDateField/StartDateField.jsx";
+import DateOfBirthField from '../DateOfBirthField/DateOfBirthField.jsx';
+import StartDateField from '../StartDateField/StartDateField.jsx';
 
 const CreateEmployeeForm = () => {
     const { formData, setField, resetFormData, employees, addEmployee } = useAppStore();
@@ -53,7 +53,7 @@ const CreateEmployeeForm = () => {
     };
 
     return (
-        <form onSubmit={e => handleSubmit(e)} >
+        <form onSubmit={e => handleSubmit(e)}>
             <TextField error={errors.firstName} handleChange={handleChange} id="first-name" name="firstName" value={formData.firstName}>
                 First Name
             </TextField>
