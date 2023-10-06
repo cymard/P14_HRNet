@@ -1,23 +1,18 @@
-const SelectField = ({ error, handleChange, id, name, value, options, children }) => {
+import Select from 'react-select';
+
+const SelectField = ({ handleChange, id, name, options, children }) => {
     return (
         <div className="mb-3">
             <label className="form-label" htmlFor={id}>
                 {children}
             </label>
-            <select
-                className={'form-select ' + (error !== '' ? 'is-invalid' : undefined)}
-                onChange={e => handleChange(e)}
+
+            <Select
+                options={options}
+                defaultValue={options[0]}
+                onChange={e => handleChange({ target: { name: name, value: e.value } }, true)}
                 id={id}
-                name={name}
-                value={value}
-            >
-                {options.map(option => (
-                    <option key={option} value={option}>
-                        {option}
-                    </option>
-                ))}
-            </select>
-            {error !== '' && <span className="text-danger form-text">{error}</span>}
+            />
         </div>
     );
 };

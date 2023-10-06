@@ -4,6 +4,8 @@ import employeeValidation from '../../validation/employeeValidation.js';
 import TextField from '../TextField/TextField.jsx';
 import NumberField from '../NumberField/NumberField.jsx';
 import SelectField from '../SelectField/SelectField.jsx';
+import DateOfBirthField from "../DateOfBirthField/DateOfBirthField.jsx";
+import StartDateField from "../StartDateField/StartDateField.jsx";
 
 const CreateEmployeeForm = () => {
     const { formData, setField, resetFormData, employees, addEmployee, fetchEmployeesFromLocalStorage } = useAppStore();
@@ -24,13 +26,16 @@ const CreateEmployeeForm = () => {
         fetchEmployeesFromLocalStorage();
     }, [fetchEmployeesFromLocalStorage]);
 
-    const handleChange = e => {
+    const handleChange = (e, isSkipValidation = false) => {
         const { name, value } = e.target;
 
-        employeeValidation
-            .validateAt(name, { [name]: value })
-            .then(() => setErrors({ ...errors, [name]: '' }))
-            .catch(err => setErrors({ ...errors, [name]: err.message }));
+        if (!isSkipValidation) {
+            employeeValidation
+                .validateAt(name, { [name]: value })
+                .then(() => setErrors({ ...errors, [name]: '' }))
+                .catch(err => setErrors({ ...errors, [name]: err.message }));
+        }
+
         setField(name, value);
     };
 
@@ -61,13 +66,27 @@ const CreateEmployeeForm = () => {
                 Last Name
             </TextField>
 
-            <TextField error={errors.dateOfBirth} handleChange={handleChange} id="date-of-birth" name="dateOfBirth" value={formData.dateOfBirth}>
+            <DateOfBirthField
+                setErrors={setErrors}
+                errors={errors}
+                handleChange={handleChange}
+                id="date-of-birth"
+                name="dateOfBirth"
+                value={formData.dateOfBirth}
+            >
                 Date of Birth
-            </TextField>
+            </DateOfBirthField>
 
-            <TextField error={errors.startDate} handleChange={handleChange} id="start-date" name="startDate" value={formData.startDate}>
+            <StartDateField
+                setErrors={setErrors}
+                errors={errors}
+                handleChange={handleChange}
+                id="start-date"
+                name="startDate"
+                value={formData.startDate}
+            >
                 Start Date
-            </TextField>
+            </StartDateField>
 
             <fieldset className="address bg-body-secondary border mb-3 p-4 rounded-4">
                 <legend>Address</legend>
@@ -81,12 +100,16 @@ const CreateEmployeeForm = () => {
                 </TextField>
 
                 <SelectField
-                    error={errors.state}
                     handleChange={handleChange}
                     id="state"
                     name="state"
-                    value={formData.state}
-                    options={['dataA', 'dataB', 'dataC', 'dataD', 'dataE']}
+                    options={[
+                        { value: 'dataA', label: 'Data A' },
+                        { value: 'dataB', label: 'Data B' },
+                        { value: 'dataC', label: 'Data C' },
+                        { value: 'dataD', label: 'Data D' },
+                        { value: 'dataE', label: 'Data E' },
+                    ]}
                 >
                     State
                 </SelectField>
@@ -97,12 +120,16 @@ const CreateEmployeeForm = () => {
             </fieldset>
 
             <SelectField
-                error={errors.department}
                 handleChange={handleChange}
                 id="department"
                 name="department"
-                value={formData.department}
-                options={['Sales', 'Marketing', 'Engineering', 'Human Resources', 'Legal']}
+                options={[
+                    { value: 'Sales', label: 'Sales' },
+                    { value: 'Marketing', label: 'Marketing' },
+                    { value: 'Engineering', label: 'Engineering' },
+                    { value: 'Human Resources', label: 'Human Resources' },
+                    { value: 'Legal', label: 'Legal' },
+                ]}
             >
                 Department
             </SelectField>
