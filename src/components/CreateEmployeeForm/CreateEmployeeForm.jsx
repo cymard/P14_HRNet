@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useAppStore from '../../stores/appStore.js';
 import employeeValidation from '../../validation/employeeValidation.js';
 import TextField from '../TextField/TextField.jsx';
@@ -8,7 +8,7 @@ import DateOfBirthField from "../DateOfBirthField/DateOfBirthField.jsx";
 import StartDateField from "../StartDateField/StartDateField.jsx";
 
 const CreateEmployeeForm = () => {
-    const { formData, setField, resetFormData, employees, addEmployee, fetchEmployeesFromLocalStorage } = useAppStore();
+    const { formData, setField, resetFormData, employees, addEmployee } = useAppStore();
     const initialFormFieldErrors = {
         firstName: '',
         lastName: '',
@@ -21,10 +21,6 @@ const CreateEmployeeForm = () => {
         department: '',
     };
     const [errors, setErrors] = useState(initialFormFieldErrors);
-
-    useEffect(() => {
-        fetchEmployeesFromLocalStorage();
-    }, [fetchEmployeesFromLocalStorage]);
 
     const handleChange = (e, isSkipValidation = false) => {
         const { name, value } = e.target;
