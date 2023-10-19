@@ -101,12 +101,7 @@ const CreateEmployeeForm = () => {
                         City
                     </TextField>
 
-                    <SelectField
-                        handleChange={handleChange}
-                        id="state"
-                        name="state"
-                        options={states}
-                    >
+                    <SelectField handleChange={handleChange} id="state" name="state" options={states}>
                         State
                     </SelectField>
 
