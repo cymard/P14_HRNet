@@ -7,6 +7,7 @@ import SelectField from '../SelectField/SelectField.jsx';
 import DateOfBirthField from '../DateOfBirthField/DateOfBirthField.jsx';
 import StartDateField from '../StartDateField/StartDateField.jsx';
 import { Modal } from '@cymard/simple-react-modal-component';
+import states from '../../json/states.json';
 
 const CreateEmployeeForm = () => {
     const { formData, setField, resetFormData, employees, addEmployee } = useAppStore();
@@ -104,13 +105,7 @@ const CreateEmployeeForm = () => {
                         handleChange={handleChange}
                         id="state"
                         name="state"
-                        options={[
-                            { value: 'dataA', label: 'Data A' },
-                            { value: 'dataB', label: 'Data B' },
-                            { value: 'dataC', label: 'Data C' },
-                            { value: 'dataD', label: 'Data D' },
-                            { value: 'dataE', label: 'Data E' },
-                        ]}
+                        options={states}
                     >
                         State
                     </SelectField>
