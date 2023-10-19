@@ -11,6 +11,7 @@ const Field = ({ type, error, handleChange, id, name, value, children }) => {
                 id={id}
                 name={name}
                 value={value}
+                autoComplete="on"
             />
             {error !== '' && <span className="text-danger form-text">{error}</span>}
         </div>
