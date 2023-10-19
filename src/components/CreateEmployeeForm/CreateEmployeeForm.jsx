@@ -6,7 +6,7 @@ import NumberField from '../NumberField/NumberField.jsx';
 import SelectField from '../SelectField/SelectField.jsx';
 import DateOfBirthField from '../DateOfBirthField/DateOfBirthField.jsx';
 import StartDateField from '../StartDateField/StartDateField.jsx';
-import { Modal } from "@cymard/simple-react-modal-component";
+import { Modal } from '@cymard/simple-react-modal-component';
 
 const CreateEmployeeForm = () => {
     const { formData, setField, resetFormData, employees, addEmployee } = useAppStore();
@@ -55,11 +55,7 @@ const CreateEmployeeForm = () => {
 
     return (
         <>
-            <Modal
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-                onExternalClick={() => setIsOpen(false)}
-            >
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} onExternalClick={() => setIsOpen(false)}>
                 Employee Created!
             </Modal>
             <form onSubmit={e => handleSubmit(e)}>
