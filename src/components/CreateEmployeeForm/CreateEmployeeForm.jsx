@@ -6,6 +6,7 @@ import NumberField from '../NumberField/NumberField.jsx';
 import SelectField from '../SelectField/SelectField.jsx';
 import DateOfBirthField from '../DateOfBirthField/DateOfBirthField.jsx';
 import StartDateField from '../StartDateField/StartDateField.jsx';
+import { Modal } from "@cymard/simple-react-modal-component";
 
 const CreateEmployeeForm = () => {
     const { formData, setField, resetFormData, employees, addEmployee } = useAppStore();
@@ -21,6 +22,7 @@ const CreateEmployeeForm = () => {
         department: '',
     };
     const [errors, setErrors] = useState(initialFormFieldErrors);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleChange = (e, isSkipValidation = false) => {
         const { name, value } = e.target;
@@ -43,96 +45,104 @@ const CreateEmployeeForm = () => {
                 setErrors(initialFormFieldErrors);
                 addEmployee(formData);
                 localStorage.setItem('employees', JSON.stringify([...employees, formData]));
+                setIsOpen(true);
                 resetFormData();
             })
             .catch(err => {
                 setErrors({ ...errors, [err.path]: err.message });
             });
-
-        // TODO déclencher la modal
     };
 
     return (
-        <form onSubmit={e => handleSubmit(e)}>
-            <TextField error={errors.firstName} handleChange={handleChange} id="first-name" name="firstName" value={formData.firstName}>
-                First Name
-            </TextField>
-
-            <TextField error={errors.lastName} handleChange={handleChange} id="last-name" name="lastName" value={formData.lastName}>
-                Last Name
-            </TextField>
-
-            <DateOfBirthField
-                setErrors={setErrors}
-                errors={errors}
-                handleChange={handleChange}
-                id="date-of-birth"
-                name="dateOfBirth"
-                value={formData.dateOfBirth}
+        <>
+            <Modal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                onExternalClick={() => setIsOpen(false)}
             >
-                Date of Birth
-            </DateOfBirthField>
-
-            <StartDateField
-                setErrors={setErrors}
-                errors={errors}
-                handleChange={handleChange}
-                id="start-date"
-                name="startDate"
-                value={formData.startDate}
-            >
-                Start Date
-            </StartDateField>
-
-            <fieldset className="address bg-body-secondary border mb-3 p-4 rounded-4">
-                <legend>Address</legend>
-
-                <TextField error={errors.street} handleChange={handleChange} id="street" name="street" value={formData.street}>
-                    Street
+                Employee Created!
+            </Modal>
+            <form onSubmit={e => handleSubmit(e)}>
+                <TextField error={errors.firstName} handleChange={handleChange} id="first-name" name="firstName" value={formData.firstName}>
+                    First Name
                 </TextField>
 
-                <TextField error={errors.city} handleChange={handleChange} id="city" name="city" value={formData.city}>
-                    City
+                <TextField error={errors.lastName} handleChange={handleChange} id="last-name" name="lastName" value={formData.lastName}>
+                    Last Name
                 </TextField>
+
+                <DateOfBirthField
+                    setErrors={setErrors}
+                    errors={errors}
+                    handleChange={handleChange}
+                    id="date-of-birth"
+                    name="dateOfBirth"
+                    value={formData.dateOfBirth}
+                >
+                    Date of Birth
+                </DateOfBirthField>
+
+                <StartDateField
+                    setErrors={setErrors}
+                    errors={errors}
+                    handleChange={handleChange}
+                    id="start-date"
+                    name="startDate"
+                    value={formData.startDate}
+                >
+                    Start Date
+                </StartDateField>
+
+                <fieldset className="address bg-body-secondary border mb-3 p-4 rounded-4">
+                    <legend>Address</legend>
+
+                    <TextField error={errors.street} handleChange={handleChange} id="street" name="street" value={formData.street}>
+                        Street
+                    </TextField>
+
+                    <TextField error={errors.city} handleChange={handleChange} id="city" name="city" value={formData.city}>
+                        City
+                    </TextField>
+
+                    <SelectField
+                        handleChange={handleChange}
+                        id="state"
+                        name="state"
+                        options={[
+                            { value: 'dataA', label: 'Data A' },
+                            { value: 'dataB', label: 'Data B' },
+                            { value: 'dataC', label: 'Data C' },
+                            { value: 'dataD', label: 'Data D' },
+                            { value: 'dataE', label: 'Data E' },
+                        ]}
+                    >
+                        State
+                    </SelectField>
+
+                    <NumberField error={errors.zipCode} handleChange={handleChange} id="zip-code" name="zipCode" value={formData.zipCode}>
+                        Zip Code
+                    </NumberField>
+                </fieldset>
 
                 <SelectField
                     handleChange={handleChange}
-                    id="state"
-                    name="state"
+                    id="department"
+                    name="department"
                     options={[
-                        { value: 'dataA', label: 'Data A' },
-                        { value: 'dataB', label: 'Data B' },
-                        { value: 'dataC', label: 'Data C' },
-                        { value: 'dataD', label: 'Data D' },
-                        { value: 'dataE', label: 'Data E' },
+                        { value: 'Sales', label: 'Sales' },
+                        { value: 'Marketing', label: 'Marketing' },
+                        { value: 'Engineering', label: 'Engineering' },
+                        { value: 'Human Resources', label: 'Human Resources' },
+                        { value: 'Legal', label: 'Legal' },
                     ]}
                 >
-                    State
+                    Department
                 </SelectField>
-
-                <NumberField error={errors.zipCode} handleChange={handleChange} id="zip-code" name="zipCode" value={formData.zipCode}>
-                    Zip Code
-                </NumberField>
-            </fieldset>
-
-            <SelectField
-                handleChange={handleChange}
-                id="department"
-                name="department"
-                options={[
-                    { value: 'Sales', label: 'Sales' },
-                    { value: 'Marketing', label: 'Marketing' },
-                    { value: 'Engineering', label: 'Engineering' },
-                    { value: 'Human Resources', label: 'Human Resources' },
-                    { value: 'Legal', label: 'Legal' },
-                ]}
-            >
-                Department
-            </SelectField>
-            <button type="submit" className="btn btn-primary">
-                Save
-            </button>
-        </form>
+                <button type="submit" className="btn btn-primary">
+                    Save
+                </button>
+            </form>
+        </>
     );
 };
 
