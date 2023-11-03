@@ -124,7 +124,7 @@ const CreateEmployeeForm = () => {
                 >
                     Department
                 </SelectField>
-                <button type="submit" className="btn btn-primary">
+                <button aria-label="Save employee informations" type="submit" className="btn btn-primary">
                     Save
                 </button>
             </form>
