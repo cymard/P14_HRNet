@@ -6,7 +6,7 @@ import NumberField from '../NumberField/NumberField.jsx';
 import SelectField from '../SelectField/SelectField.jsx';
 import DateOfBirthField from '../DateOfBirthField/DateOfBirthField.jsx';
 import StartDateField from '../StartDateField/StartDateField.jsx';
-import { Modal } from '@cymard/simple-react-modal-component';
+import { Modal } from 'simple-modal-react-component-v2';
 import states from '../../json/states.json';
 
 const CreateEmployeeForm = () => {
